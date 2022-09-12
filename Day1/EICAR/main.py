@@ -1,4 +1,5 @@
 import os
+import hashlib
 
 vf = open('eicat.txt', 'w')
 virus = 'X5O!P%@AP[4\PZX54(P^)7CC)7}$EICAR-STANDARD-ANTIVIRUS-TEST-FILE!$H+H*'
@@ -10,7 +11,11 @@ fp = open('eicat.txt', 'rb')
 fbuf = fp.read()
 fp.close()
 
-if fbuf[0:3] == b'X5O':
+m = hashlib.md5()
+m.update(fbuf)
+fmd5 = m.hexdigest()
+
+if fmd5 == '44d88612fea8a8f36de82e1278abb02f':
     print("Virus")
     os.remove('eicat.txt')
 else:
